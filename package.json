@@ -1,8 +1,8 @@
 {
-  "name": "electron",
-  "productName": "electron",
+  "name": "cbse-ai",
+  "productName": "cbse-ai",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "Cross Platform Application for CBSE AI",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
@@ -28,6 +28,7 @@
     "@electron-forge/maker-zip": "^7.8.0",
     "@electron-forge/plugin-auto-unpack-natives": "^7.8.0",
     "@electron-forge/plugin-fuses": "^7.8.0",
+    "@electron-forge/publisher-github": "^7.8.0",
     "@electron/fuses": "^1.8.0",
     "electron": "36.1.0"
   }
