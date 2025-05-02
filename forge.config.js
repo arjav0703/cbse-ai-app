@@ -12,7 +12,7 @@ module.exports = {
       config: {
         repository: {
           owner: "arjav0703",
-          name: "cbse-ai",
+          name: "cbse-ai-app",
         },
         prerelease: true,
       },
