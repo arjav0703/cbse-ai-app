@@ -20,6 +20,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
+      - run: sudo apt-get update && sudo apt-get install -y
+      - run: sudo apt install wine wine-mono mono -y
       - run: npm ci
       - run: npm run make
       - run: npm run publish
