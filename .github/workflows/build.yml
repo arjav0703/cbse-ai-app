@@ -1,4 +1,4 @@
-name: Binary Builder
+name: Build and Publish Binaries
 
 on:
   push:
@@ -10,7 +10,7 @@ permissions:
   contents: write
 
 jobs:
-  build:
+  build-linux:
     runs-on: ubuntu-latest
     environment: publish-app
 
@@ -34,8 +34,64 @@ jobs:
       - name: Install npm dependencies
         run: npm ci
 
-      # - name: Build binaries
-      #   run: npm run make
+      - name: Build binaries
+        run: npm run make
+
+      - name: Publish binaries
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+        run: npm run publish
+
+  build-macos:
+    runs-on: macos-latest
+    environment: publish-app
+
+    strategy:
+      matrix:
+        node-version: [20]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Build binaries
+        run: npm run make
+
+      - name: Publish binaries
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+        run: npm run publish
+
+  build-windows:
+    runs-on: windows-latest
+    environment: publish-app
+
+    strategy:
+      matrix:
+        node-version: [20]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Build binaries
+        run: npm run make
 
       - name: Publish binaries
         env:
