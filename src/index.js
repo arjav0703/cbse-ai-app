@@ -9,7 +9,7 @@ function createWindow() {
     },
   });
 
-  win.loadURL("https://cbseai.vercel.app");
+  win.loadURL("https://cbseai.live");
 
   win.webContents.setWindowOpenHandler(({ url }) => {
     if (url.includes("accounts.google.com")) {
