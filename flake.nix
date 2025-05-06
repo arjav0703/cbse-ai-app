@@ -16,27 +16,30 @@
       system:
       let
         pkgs = import nixpkgs { inherit system; };
-        electron = pkgs.electron_28; # TBD
+        electron = pkgs.electron_28;
       in
       {
         packages.default = pkgs.stdenv.mkDerivation {
-          pname = "cbse-ai";
-          version = "0.1.1";
+          pname = "cbse-ai-app";
+          version = "0.1.0";
           src = ./.;
           buildInputs = [
             pkgs.nodejs
             electron
+            pkgs.makeWrapper
           ];
+          # Install npm dependencies
           installPhase = ''
+            export HOME=$TMPDIR
+            npm install --production
             mkdir -p $out/bin
-            makeWrapper ${electron}/bin/electron $out/bin/my-electron-app \
+            makeWrapper ${electron}/bin/electron $out/bin/cbse-ai-app \
               --add-flags $src
           '';
         };
-        devShell = pkgs.mkShell {
+        devShells.default = pkgs.mkShell {
           buildInputs = [
             pkgs.nodejs
-            pkgs.yarn
             electron
           ];
         };
